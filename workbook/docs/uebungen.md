@@ -228,33 +228,52 @@ Die Übungen 3 bis 8 bauen aufeinander auf: Der Rechner aus Übung 3 wird in den
 
 ### Übung 6: Refactoring
 
-**Ziel:** Die Fachlogik aus dem Controller in eine Service-Klasse verschieben, abgesichert durch die Tests aus Übung 4.
+**Ziel:** Die Tests auf datengetriebene Tests umstellen und danach die Fachlogik aus dem Controller in eine Service-Klasse verschieben, abgesichert durch diese Tests.
 **Projekt:** Rechner
-**Dauer:** ca. 25 min
+**Dauer:** ca. 35 min
 
-**Schritte:**
+**Teil A – Datengetriebene Tests**
+
 1. Alle Tests ausführen: Sie sind grün.
    ```powershell
    .\gradlew.bat test
    ```
 2. Neue Chat-Sitzung im **Agent**-Modus:
    ```text
-   Verschiebe die Rechenlogik aus CalculatorController in eine neue Klasse
-   CalculatorService. Das Verhalten der API bleibt unverändert. In
-   CalculatorControllerTest dürfen nur Testkonfiguration und Setup angepasst werden,
-   keine Aufrufe, Erwartungswerte oder Assertions. Führe danach alle Tests aus.
+   Stelle die Tests in CalculatorControllerTest, die sich nur in den Eingabewerten
+   und im erwarteten Ergebnis unterscheiden, auf @ParameterizedTest mit @CsvSource um.
+   Die geprüften Fälle und Erwartungswerte bleiben unverändert. Führe danach alle
+   Tests aus.
    ```
-3. Den Diff prüfen, bevor er übernommen wird: **Git → Commit** zeigt alle geänderten Dateien.
-4. Alle Tests erneut selbst ausführen.
-5. Den Stand committen.
+3. Den Diff prüfen: Jeder bisherige Fall ist als Zeile in einer Datenquelle wiederzufinden.
+4. In derselben Sitzung die Daten in eine Datei auslagern lassen:
+   ```text
+   Lagere die Testdaten der Rechenfälle in die Datei
+   src/test/resources/calculations.csv aus und lies sie mit @CsvFileSource.
+   ```
+5. In `calculations.csv` eine weitere Zeile für einen neuen Rechenfall ergänzen, ohne den Testcode zu ändern, und die Tests ausführen.
+6. Den Stand committen.
+
+**Teil B – Service extrahieren**
+
+7. Neue Chat-Sitzung im **Agent**-Modus:
+   ```text
+   Verschiebe die Rechenlogik aus CalculatorController in eine neue Klasse
+   CalculatorService. Das Verhalten der API bleibt unverändert. In den Testklassen
+   dürfen nur Testkonfiguration und Setup angepasst werden, keine Aufrufe,
+   Testdaten, Erwartungswerte oder Assertions. Führe danach alle Tests aus.
+   ```
+8. Den Diff prüfen, bevor er übernommen wird: **Git → Commit** zeigt alle geänderten Dateien.
+9. Alle Tests erneut selbst ausführen und den Stand committen.
 
 **Abnahmekriterien:**
+- Die Rechenfälle stehen in `calculations.csv`; die neue Zeile aus Schritt 5 wird als eigener Testfall ausgeführt.
+- Kein Fall aus den Tests von Übung 4 ist bei der Umstellung verloren gegangen.
 - `CalculatorController` enthält keine Berechnungen mehr, sondern ruft `CalculatorService` auf.
-- Alle Tests sind grün.
-- Im Diff von `CalculatorControllerTest` sind Aufrufe, Erwartungswerte und Assertions unverändert.
+- Alle Tests sind grün; im Diff von Teil B sind Testdaten, Erwartungswerte und Assertions unverändert.
 - Die Controller-Tests verwenden den echten `CalculatorService`, keinen Mock. Andernfalls prüfen sie die Rechenlogik nicht mehr.
 
-**Zusatz:** Unit-Tests für `CalculatorService` ohne Spring-Kontext erzeugen lassen.
+**Zusatz:** Unit-Tests für `CalculatorService` ohne Spring-Kontext erzeugen lassen, die dieselbe Datei `calculations.csv` verwenden.
 
 ---
 
@@ -262,7 +281,7 @@ Die Übungen 3 bis 8 bauen aufeinander auf: Der Rechner aus Übung 3 wird in den
 
 **Ziel:** Eine unvollständige Anforderung erst planen lassen, den Plan prüfen und ihn dann umsetzen. Die Kosten von Planung und Umsetzung mit unterschiedlichen Modellen vergleichen.
 **Projekt:** Rechner
-**Dauer:** ca. 40 min
+**Dauer:** ca. 35 min
 
 **Ticket:**
 
@@ -325,8 +344,9 @@ Die Übungen 3 bis 8 bauen aufeinander auf: Der Rechner aus Übung 3 wird in den
    2. Add a GET endpoint /api/<operation> in CalculatorController that delegates
       to the service.
    3. Invalid input returns HTTP 400 with {"error": "<message>"}.
-   4. Add controller tests named operation_condition_expectedResult, including
-      at least one error case.
+   4. Add the regular cases as rows in src/test/resources/calculations.csv.
+      Add at least one error case as a controller test named
+      operation_condition_expectedResult.
    5. Run all tests and report the result.
    ```
 3. Den Skill committen.
@@ -339,7 +359,7 @@ Die Übungen 3 bis 8 bauen aufeinander auf: Der Rechner aus Übung 3 wird in den
 
 **Abnahmekriterien:**
 - Der Agent hat den Skill gelesen.
-- Endpunkt, Service-Methode und Tests entsprechen den Schritten des Skills, einschließlich eines Fehlerfalls.
+- Endpunkt, Service-Methode, neue Zeilen in `calculations.csv` und ein Test für einen Fehlerfall entsprechen den Schritten des Skills.
 - Alle Tests sind grün.
 
 **Zusatz:** Mit dem Skill eine Wurzel-Operation hinzufügen. Welchen Fehlerfall wählt Copilot?
