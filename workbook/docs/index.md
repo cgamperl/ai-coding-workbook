@@ -35,7 +35,7 @@
 | Befehle im Chat | `/` im Eingabefeld zeigt die verfügbaren Befehle |
 | Inline-Vorschlag übernehmen | `Tab` |
 | Inline-Vorschlag wortweise übernehmen | `Strg+→` |
-| Nächster / vorheriger Vorschlag | `Alt+]` / `Alt+[` |
+| Nächster / vorheriger Vorschlag | `Alt+]` / `Alt+[`; auf deutscher Tastatur ggf. abweichend, Belegung unter **Settings → Keymap**, Suche „Copilot“ |
 | Vorschlag verwerfen | `Esc` |
 
 Die geöffnete Datei und markierter Code gehen automatisch als Kontext an Copilot.

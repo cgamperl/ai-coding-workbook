@@ -24,7 +24,7 @@ Die Übungen 3 bis 8 bauen aufeinander auf: Der Rechner aus Übung 3 wird in den
    | Package name | `at.tectrain.training.calculator` |
    | JDK / Java | 21 |
    | Packaging | Jar |
-   | Create Git repository | aktiviert |
+   | Create Git repository | aktiviert, falls angeboten |
 
 3. Mit **Next** weiter. Spring Boot **4.1.2** wählen und **keine** Abhängigkeiten auswählen. Mit **Create** abschließen.
 4. Warten, bis IntelliJ das Gradle-Projekt geladen hat. Im Terminal von IntelliJ den Build starten:
@@ -35,12 +35,12 @@ Die Übungen 3 bis 8 bauen aufeinander auf: Der Rechner aus Übung 3 wird in den
 6. Den Chat über das Symbol **GitHub Copilot Chat** am rechten Fensterrand öffnen. Die Auswahlliste der Modi unten im Chat öffnen und die verfügbaren Modi notieren.
 7. Die Modellauswahl im Chat öffnen und das zu Kursbeginn genannte Standardmodell einstellen.
 8. Copilot-Symbol in der Statusleiste → **View quota usage**: den aktuellen Verbrauch notieren.
-9. Den Ausgangsstand committen (**Git → Commit**).
+9. Fehlt in der Menüleiste der Eintrag **Git**, das Repository über **VCS → Create Git Repository** anlegen. Den Ausgangsstand committen (**Git → Commit**).
+10. Die PetClinic für Übung 2 klonen: **File → New → Project from Version Control**, URL `https://github.com/cgamperl/spring-petclinic`, in einem neuen Fenster öffnen. Fragt IntelliJ nach dem Build-Werkzeug, Maven wählen. IntelliJ lädt die Abhängigkeiten im Hintergrund.
 
 **Rückfallebenen:**
 - Fehlt der Eintrag **Spring Boot** im Dialog: https://start.spring.io im Browser öffnen, dieselben Werte eintragen, **Generate** wählen, das ZIP entpacken und den Ordner in IntelliJ mit **File → Open** öffnen.
 - Ist start.spring.io nicht erreichbar: [calculator.zip](https://cgamperl.github.io/ai-coding-workbook/downloads/calculator.zip) herunterladen, entpacken und öffnen.
-- In beiden Fällen das Git-Repository über **VCS → Create Git Repository** anlegen.
 
 **Abnahmekriterien:**
 - Der Build endet mit `BUILD SUCCESSFUL`.
@@ -57,7 +57,7 @@ Die Übungen 3 bis 8 bauen aufeinander auf: Der Rechner aus Übung 3 wird in den
 **Dauer:** ca. 25 min
 
 **Schritte:**
-1. **File → New → Project from Version Control** öffnen, URL `https://github.com/cgamperl/spring-petclinic` eintragen und klonen. Fragt IntelliJ nach dem Build-Werkzeug, Maven wählen.
+1. Das in Übung 1 geklonte Projekt PetClinic öffnen.
 2. Neue Chat-Sitzung im **Ask**-Modus:
    ```text
    Erkläre den Aufbau dieses Projekts: Schichten, wichtigste Klassen und den Weg
@@ -83,7 +83,7 @@ Die Übungen 3 bis 8 bauen aufeinander auf: Der Rechner aus Übung 3 wird in den
 **Abnahmekriterien:**
 - Mindestens eine Aussage aus Schritt 2 ist am Code bestätigt oder widerlegt.
 - Für Schritt 3 ist festgehalten, ob die Antwort ohne geöffnete Datei auf dem Code beruht oder geraten ist.
-- In Schritt 4 stammt die Version aus einer gelesenen Datei und das Testergebnis aus einem ausgeführten Befehl.
+- In Schritt 4 stammt die Version aus einer gelesenen Datei und das Testergebnis aus einem ausgeführten Befehl. Übersprungene Tests sind mit Grund festgehalten.
 - Für Schritt 5 ist festgehalten, ob Copilot das Fehlen der Funktion erkennt oder eine Umsetzung beschreibt, die es im Code nicht gibt.
 
 **Zusatz:** Die Frage aus Schritt 4 im Ask-Modus stellen. Worin unterscheidet sich die Antwort, und worauf beruht sie?
@@ -252,6 +252,7 @@ Die Übungen 3 bis 8 bauen aufeinander auf: Der Rechner aus Übung 3 wird in den
 - `CalculatorController` enthält keine Berechnungen mehr, sondern ruft `CalculatorService` auf.
 - Alle Tests sind grün.
 - Im Diff von `CalculatorControllerTest` sind Aufrufe, Erwartungswerte und Assertions unverändert.
+- Die Controller-Tests verwenden den echten `CalculatorService`, keinen Mock. Andernfalls prüfen sie die Rechenlogik nicht mehr.
 
 **Zusatz:** Unit-Tests für `CalculatorService` ohne Spring-Kontext erzeugen lassen.
 
