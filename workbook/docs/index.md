@@ -6,7 +6,7 @@
 
 | Projekt | Verwendung | Bezug |
 |---|---|---|
-| Rechner | Übungen 1 und 3–8: ein REST-Rechner, der Schritt für Schritt mit Copilot entsteht | wird in Übung 1 erzeugt; Ersatz: [calculator.zip](https://cgamperl.github.io/ai-coding-workbook/downloads/calculator.zip) |
+| Rechner | Übungen 1 und 3–7, Zusatzübungen A–C und E: ein REST-Rechner, der Schritt für Schritt mit Copilot entsteht | wird in Übung 1 erzeugt; Ersatz: [calculator.zip](https://cgamperl.github.io/ai-coding-workbook/downloads/calculator.zip) |
 | Spring PetClinic | Übung 2 und Zusatzübung D: bestehende Anwendung zum Erkunden | `https://github.com/cgamperl/spring-petclinic` |
 
 ## Arbeitsregeln

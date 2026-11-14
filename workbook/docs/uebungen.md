@@ -1,6 +1,6 @@
 # Übungen
 
-Die Übungen 3 bis 8 bauen aufeinander auf: Der Rechner aus Übung 3 wird in den folgenden Übungen getestet, mit Regeln versehen, umgebaut und erweitert. Jede Übung beginnt mit einer neuen Chat-Sitzung.
+Die Übungen 3 bis 7 bauen aufeinander auf: Der Rechner aus Übung 3 wird in den folgenden Übungen getestet, mit Regeln versehen, umgebaut und erweitert. Jede Übung beginnt mit einer neuen Chat-Sitzung.
 
 ---
 
@@ -281,7 +281,7 @@ Die Übungen 3 bis 8 bauen aufeinander auf: Der Rechner aus Übung 3 wird in den
 
 **Ziel:** Eine unvollständige Anforderung erst planen lassen, den Plan prüfen und ihn dann umsetzen. Die Kosten von Planung und Umsetzung mit unterschiedlichen Modellen vergleichen.
 **Projekt:** Rechner
-**Dauer:** ca. 35 min
+**Dauer:** ca. 40 min
 
 **Ticket:**
 
@@ -318,48 +318,3 @@ Die Übungen 3 bis 8 bauen aufeinander auf: Der Rechner aus Übung 3 wird in den
 - Der Verbrauch von Planung und Umsetzung ist getrennt notiert.
 
 **Zusatz:** Den Plan in einer neuen Sitzung mit dem Standardmodell erstellen lassen und mit dem ersten Plan vergleichen.
-
----
-
-### Übung 8: Einen Skill anlegen
-
-**Ziel:** Eine wiederkehrende Aufgabe als Skill beschreiben, den Copilot bei passenden Aufträgen selbst heranzieht.
-**Projekt:** Rechner
-**Dauer:** ca. 30 min
-
-**Schritte:**
-1. In IntelliJ **Settings → GitHub Copilot → Chat → Agent** öffnen und prüfen, ob Skills aktiviert sind. Fehlt die Einstellung, wird das dem Trainer gemeldet.
-2. Die Datei `.github/skills/add-operation/SKILL.md` anlegen und die Schritte an das eigene Projekt anpassen:
-   ```markdown
-   ---
-   name: add-operation
-   description: Adds a new arithmetic operation to the calculator REST API following
-     the project conventions. Use when asked to add an operation such as power,
-     modulo or square root.
-   ---
-
-   # Add an operation
-
-   1. Add the calculation as a method in CalculatorService.
-   2. Add a GET endpoint /api/<operation> in CalculatorController that delegates
-      to the service.
-   3. Invalid input returns HTTP 400 with {"error": "<message>"}.
-   4. Add the regular cases as rows in src/test/resources/calculations.csv.
-      Add at least one error case as a controller test named
-      operation_condition_expectedResult.
-   5. Run all tests and report the result.
-   ```
-3. Den Skill committen.
-4. Neue Chat-Sitzung im **Agent**-Modus, ohne den Skill zu erwähnen:
-   ```text
-   Füge eine Potenz-Operation hinzu.
-   ```
-5. Beobachten, ob der Agent `SKILL.md` liest, und das Ergebnis gegen die Schritte des Skills prüfen.
-6. Den Stand committen.
-
-**Abnahmekriterien:**
-- Der Agent hat den Skill gelesen.
-- Endpunkt, Service-Methode, neue Zeilen in `calculations.csv` und ein Test für einen Fehlerfall entsprechen den Schritten des Skills.
-- Alle Tests sind grün.
-
-**Zusatz:** Mit dem Skill eine Wurzel-Operation hinzufügen. Welchen Fehlerfall wählt Copilot?

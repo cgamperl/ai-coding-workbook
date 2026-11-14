@@ -112,3 +112,48 @@ Für alle, die mit einer Übung früher fertig sind. Die Zusatzübungen sind una
 - Für jede Konfliktstelle aus Schritt 1 ist begründet, welche Seite übernommen oder wie kombiniert wurde.
 - Nach Schritt 4 sind alle Tests grün.
 - Für Schritt 5 ist festgehalten, ob nach der Auflösung alle Tests grün sind, und für jeden roten Test, welche Anforderung er prüft.
+
+---
+
+### Zusatz E: Einen Skill anlegen (Bonus)
+
+**Ziel:** Eine wiederkehrende Aufgabe als Skill beschreiben, den Copilot bei passenden Aufträgen selbst heranzieht.
+**Projekt:** Rechner (Stand nach Übung 6)
+**Dauer:** ca. 30 min
+
+**Schritte:**
+1. In IntelliJ **Settings → GitHub Copilot → Chat → Agent** öffnen und prüfen, ob Skills aktiviert sind. Fehlt die Einstellung, wird das dem Trainer gemeldet.
+2. Die Datei `.github/skills/add-operation/SKILL.md` anlegen und die Schritte an das eigene Projekt anpassen:
+   ```markdown
+   ---
+   name: add-operation
+   description: Adds a new arithmetic operation to the calculator REST API following
+     the project conventions. Use when asked to add an operation such as power,
+     modulo or square root.
+   ---
+
+   # Add an operation
+
+   1. Add the calculation as a method in CalculatorService.
+   2. Add a GET endpoint /api/<operation> in CalculatorController that delegates
+      to the service.
+   3. Invalid input returns HTTP 400 with {"error": "<message>"}.
+   4. Add the regular cases as rows in src/test/resources/calculations.csv.
+      Add at least one error case as a controller test named
+      operation_condition_expectedResult.
+   5. Run all tests and report the result.
+   ```
+3. Den Skill committen.
+4. Neue Chat-Sitzung im **Agent**-Modus, ohne den Skill zu erwähnen:
+   ```text
+   Füge eine Potenz-Operation hinzu.
+   ```
+5. Beobachten, ob der Agent `SKILL.md` liest, und das Ergebnis gegen die Schritte des Skills prüfen.
+6. Den Stand committen.
+
+**Abnahmekriterien:**
+- Der Agent hat den Skill gelesen.
+- Endpunkt, Service-Methode, neue Zeilen in `calculations.csv` und ein Test für einen Fehlerfall entsprechen den Schritten des Skills.
+- Alle Tests sind grün.
+
+**Erweiterung:** Mit dem Skill eine Wurzel-Operation hinzufügen. Welchen Fehlerfall wählt Copilot?
